@@ -1,0 +1,255 @@
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1.0.0" author="dmitry.cherkas">
+
+        <createTable tableName="users">
+
+            <column name="user_id" type="VARCHAR(100)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="e_mail" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="coins" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1.0.1" author="dmitry.cherkas">
+
+        <sql><![CDATA[
+            CREATE TYPE INGREDIENT_TYPE AS ENUM
+                ('HERB', 'POWDER', 'LIQUID', 'SOLID', 'ELIXIR');
+        ]]></sql>
+
+    </changeSet>
+
+    <changeSet id="1.0.2" author="dmitry.cherkas">
+
+        <createTable tableName="ingredients">
+
+            <column name="ingredient_id" type="VARCHAR(100)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="ingredient_name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="ingredient_type" type="INGREDIENT_TYPE">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="level" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="ingredient_cost" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1.0.3" author="dmitry.cherkas">
+
+        <createTable tableName="ingredient_amount">
+
+            <column name="user_id" type="VARCHAR(100)">
+            </column>
+
+            <column name="ingredient_id" type="VARCHAR(100)">
+            </column>
+
+            <column name="amount" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1.0.4" author="dmitry.cherkas">
+
+        <createTable tableName="roles">
+
+            <column name="role_id" type="VARCHAR(100)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="role_name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1.0.5" author="dmitry.cherkas">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="ingredient_amount"
+                                 constraintName="fk_ingredient_amount_user"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="1.0.6" author="dmitry.cherkas">
+
+        <addForeignKeyConstraint baseColumnNames="ingredient_id"
+                                 baseTableName="ingredient_amount"
+                                 constraintName="fk_ingredient_amount_ingredient"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="ingredient_id"
+                                 referencedTableName="ingredients"/>
+    </changeSet>
+
+    <changeSet id="1.0.7" author="dmitry.cherkas">
+
+        <createTable tableName="user_roles">
+
+            <column name="user_id" type="VARCHAR(100)">
+            </column>
+
+            <column name="role_id" type="VARCHAR(100)">
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1.0.8" author="dmitry.cherkas">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_roles"
+                                 constraintName="fk_user_roles_user"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="1.0.9" author="dmitry.cherkas">
+
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="user_roles"
+                                 constraintName="fk_user_roles_roles"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="role_id"
+                                 referencedTableName="roles"/>
+    </changeSet>
+
+    <changeSet id="1.0.10" author="dmitry.cherkas">
+
+        <createTable tableName="recipes">
+
+            <column name="recipe_id" type="VARCHAR(100)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="VARCHAR(100)">
+            </column>
+
+            <column name="elixir_name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1.0.11" author="dmitry.cherkas">
+
+        <createTable tableName="recipe_items">
+
+            <column name="recipe_id" type="VARCHAR(100)">
+            </column>
+
+            <column name="ingredient_id" type="VARCHAR(100)">
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1.0.12" author="dmitry.cherkas">
+
+        <addForeignKeyConstraint baseColumnNames="recipe_id"
+                                 baseTableName="recipe_items"
+                                 constraintName="fk_recipe_items_recipe"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="recipe_id"
+                                 referencedTableName="recipes"/>
+    </changeSet>
+
+    <changeSet id="1.0.13" author="dmitry.cherkas">
+
+        <addForeignKeyConstraint baseColumnNames="ingredient_id"
+                                 baseTableName="recipe_items"
+                                 constraintName="fk_recipe_items_ingredient"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="ingredient_id"
+                                 referencedTableName="ingredients"/>
+    </changeSet>
+
+    <changeSet id="1.0.14" author="dmitry.cherkas">
+
+        <createTable tableName="recipe_owners">
+
+            <column name="recipe_id" type="VARCHAR(100)">
+            </column>
+
+            <column name="user_id" type="VARCHAR(100)">
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="1.0.15" author="dmitry.cherkas">
+
+        <addForeignKeyConstraint baseColumnNames="recipe_id"
+                                 baseTableName="recipe_owners"
+                                 constraintName="fk_recipe_owners_recipe"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="recipe_id"
+                                 referencedTableName="recipes"/>
+    </changeSet>
+
+    <changeSet id="1.0.16" author="dmitry.cherkas">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="recipe_owners"
+                                 constraintName="fk_recipe_owners_user"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>

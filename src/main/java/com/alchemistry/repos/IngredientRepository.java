@@ -16,6 +16,8 @@ public interface IngredientRepository extends JpaRepository<Ingredient,String>  
 
     List<Ingredient> orderByCostAsc();
 
+    List<Ingredient> orderByLevel();
+
     List<Ingredient> orderByTypeAsc();
 
     List<Ingredient> findByName(String name);
@@ -23,6 +25,8 @@ public interface IngredientRepository extends JpaRepository<Ingredient,String>  
     List<Ingredient> findByCostBefore(Long cost);
 
     List<Ingredient> findByCostAfter(Long cost);
+
+    List<Ingredient> findByLevel(Integer level);
 
     List<Ingredient> findByType(IngredientType type);
 }

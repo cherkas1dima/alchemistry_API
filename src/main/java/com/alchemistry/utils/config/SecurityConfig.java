@@ -4,15 +4,15 @@ import com.alchemistry.security.jwt.JwtConfigurer;
 import com.alchemistry.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import static com.alchemistry.utils.AlchemistryContants.LOGIN_ALCHEMIST_ENDPOINT;
-import static com.alchemistry.utils.AlchemistryContants.MAGISTER_ALCHEMIST;
-import static com.alchemistry.utils.AlchemistryContants.MAGISTER_ALCHEMIST_ENDPOINT;
 
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -37,7 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_ALCHEMIST_ENDPOINT).permitAll()
-                .antMatchers(MAGISTER_ALCHEMIST_ENDPOINT).hasRole(MAGISTER_ALCHEMIST)
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

@@ -19,7 +19,7 @@ public final class JwtUserTransformer {
                 user.getE_mail(),
                 user.getPassword(),
                 user.getCoins(),
-                user.getElixirs(),
+                user.getUnlockedRecipes(),
                 user.getIngredients(),
                 mapToGrantedAuthorities(new ArrayList<>(user.getRoles()))
         );
@@ -32,7 +32,7 @@ public final class JwtUserTransformer {
                 .setE_mail(jwtUser.getEmail())
                 .setPassword(jwtUser.getPassword())
                 .setCoins(jwtUser.getCoins())
-                .setElixirs(jwtUser.getElixirs())
+                .setUnlockedRecipes(jwtUser.getUnlockedRecipes())
                 .setIngredients(jwtUser.getIngredients())
                 .build();
     }

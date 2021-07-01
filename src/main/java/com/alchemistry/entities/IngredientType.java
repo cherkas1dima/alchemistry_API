@@ -4,5 +4,7 @@ public enum IngredientType {
     HERB,
     POWDER,
     LIQUID,
-    SOLID
+    SOLID,
+    METAL,
+    ELIXIR
 }

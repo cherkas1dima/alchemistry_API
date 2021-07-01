@@ -16,7 +16,7 @@ public class IngredientTransformer implements Transformer<Ingredient, Ingredient
                 .setName(entity.getName())
                 .setType(entity.getType())
                 .setCost(entity.getCost())
-                .setElixirs(entity.getElixirs())
+                .setLevel(entity.getLevel())
                 .setIngredientOwners(entity.getIngredientOwners())
                 .build();
     }
@@ -27,7 +27,7 @@ public class IngredientTransformer implements Transformer<Ingredient, Ingredient
                 .setName(dto.getName())
                 .setType(dto.getType())
                 .setCost(dto.getCost())
-                .setElixirs(dto.getElixirs())
+                .setLevel(dto.getLevel())
                 .setIngredientOwners(dto.getIngredientOwners())
                 .build();
     }

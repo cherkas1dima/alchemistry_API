@@ -6,13 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -37,13 +36,10 @@ public class User {
     private String password;
     @Column(name = "coins")
     private Long coins;
-    @ManyToMany(mappedBy="elixirOwners", fetch = FetchType.EAGER)
-    private List<Elixir> elixirs;
     @ManyToMany(mappedBy="ingredientOwners", fetch = FetchType.EAGER)
     private List<Ingredient> ingredients;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<UserRoles> roles;
+    @ManyToMany(mappedBy="owners", fetch = FetchType.EAGER)
+    private List<Recipe> unlockedRecipes;
 }

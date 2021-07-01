@@ -23,7 +23,7 @@ public class RegistrationTransformer implements Transformer<RegistrationRequest,
                 .setE_mail(entity.getE_mail())
                 .setPassword(passwordEncoder.encode(entity.getPassword()))
                 .setCoins(SIMPLE_ALCHEMIST_STARTER_COINS_PACK)
-                .setElixirs(null)
+                .setUnlockedRecipes(null)
                 .setIngredients(null)
                 .build();
     }
