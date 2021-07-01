@@ -19,23 +19,19 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(setterPrefix = "set", builderMethodName = "anElixir", toBuilder = true)
+@Builder(setterPrefix = "set", builderMethodName = "anRecipe", toBuilder = true)
 @Entity
-@Table(name = "elixir")
-public class Elixir {
+@Table(name = "recipes")
+public class Recipe {
 
     @Id
-    @GenericGenerator(name = "elixir_id", strategy = "com.alchemistry.utils.UUIDIdGenerator")
-    @GeneratedValue(generator = "elixir_id")
+    @GenericGenerator(name = "recipe_id", strategy = "com.alchemistry.utils.UUIDIdGenerator")
+    @GeneratedValue(generator = "recipe_id")
     private String id;
     @Column(name = "elixir_name")
     private String name;
-    @Column(name = "cost")
-    private Long cost;
-    @Column(name = "level")
-    private Integer level;
-    @ManyToMany(mappedBy="elixirs", fetch = FetchType.EAGER)
-    private List<Ingredient> recipe;
+    @ManyToMany(mappedBy="recipes", fetch = FetchType.EAGER)
+    private List<Ingredient> recipes;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<User> elixirOwners;
+    private List<User> owners;
 }

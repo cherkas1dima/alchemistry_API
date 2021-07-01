@@ -1,7 +1,7 @@
 package com.alchemistry.security.jwt;
 
-import com.alchemistry.entities.Elixir;
 import com.alchemistry.entities.Ingredient;
+import com.alchemistry.entities.Recipe;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,18 +16,18 @@ public class JwtUser implements UserDetails {
     private final String e_mail;
     private final String password;
     private final Long coins;
-    private final List<Elixir> elixirs;
+    private final List<Recipe> unlockedRecipes;
     private final List<Ingredient> ingredients;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUser(String id, String name, String e_mail, String password, Long coins, List<Elixir> elixirs,
+    public JwtUser(String id, String name, String e_mail, String password, Long coins, List<Recipe> unlockedRecipes,
                    List<Ingredient> ingredients, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.e_mail = e_mail;
         this.password = password;
         this.coins = coins;
-        this.elixirs = elixirs;
+        this.unlockedRecipes = unlockedRecipes;
         this.ingredients = ingredients;
         this.authorities = authorities;
     }
@@ -83,8 +83,8 @@ public class JwtUser implements UserDetails {
         return coins;
     }
 
-    public List<Elixir> getElixirs() {
-        return elixirs;
+    public List<Recipe> getUnlockedRecipes() {
+        return unlockedRecipes;
     }
 
     public List<Ingredient> getIngredients() {

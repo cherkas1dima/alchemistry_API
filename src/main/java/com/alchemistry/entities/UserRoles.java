@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder(setterPrefix = "set", builderMethodName = "anUser", toBuilder = true)
 @Entity
-@Table(name = "user_roles")
+@Table(name = "roles")
 @ToString(exclude = "users")
 public class UserRoles {
 
@@ -29,10 +29,8 @@ public class UserRoles {
     @GenericGenerator(name = "role_id", strategy = "com.alchemistry.utils.UUIDIdGenerator")
     @GeneratedValue(generator = "role_id")
     private String id;
-
     @Column(name = "role_name")
     private String name;
-
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
 }

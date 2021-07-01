@@ -82,12 +82,14 @@ public class IngredientServiceImpl implements IngredientService {
         if (parameter.equals(AlchemySortParams.NAME)) return ingredientRepository.orderByNameAsc();
         if (parameter.equals(AlchemySortParams.TYPE)) return ingredientRepository.orderByTypeAsc();
         if (parameter.equals(AlchemySortParams.COST)) return ingredientRepository.orderByCostAsc();
+        if (parameter.equals(AlchemySortParams.LEVEL)) return ingredientRepository.orderByLevel();
         throw new RuntimeException("Wrong parameter sort type");
     }
 
     private List<Ingredient> filter(Object parameter) {
         if (parameter instanceof String) return ingredientRepository.findByName((String) parameter);
         if (parameter instanceof IngredientType) return ingredientRepository.findByType((IngredientType) parameter);
+        if (parameter instanceof Integer) return ingredientRepository.findByLevel((Integer) parameter);
         throw new RuntimeException("Wrong parameter filter type");
     }
 }

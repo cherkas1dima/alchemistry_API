@@ -17,8 +17,8 @@ public class UserTransformer implements Transformer<User, UserDto> {
                 .setE_mail(entity.getE_mail())
                 .setPassword(entity.getPassword())
                 .setCoins(entity.getCoins())
-                .setElixirs(entity.getElixirs())
                 .setIngredients(entity.getIngredients())
+                .setUnlockedRecipes(entity.getUnlockedRecipes())
                 .build();
     }
 
@@ -29,8 +29,8 @@ public class UserTransformer implements Transformer<User, UserDto> {
                 .setE_mail(dto.getE_mail())
                 .setPassword(dto.getPassword())
                 .setCoins(dto.getCoins())
-                .setElixirs(dto.getElixirs())
                 .setIngredients(dto.getIngredients())
+                .setUnlockedRecipes(dto.getUnlockedRecipes())
                 .build();
     }
 }

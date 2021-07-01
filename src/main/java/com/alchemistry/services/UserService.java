@@ -1,6 +1,5 @@
 package com.alchemistry.services;
 
-import com.alchemistry.dto.modelsdto.IngredientDto;
 import com.alchemistry.dto.modelsdto.UserDto;
 import com.alchemistry.dto.requsestdto.RegistrationRequest;
 import com.alchemistry.entities.User;
@@ -21,6 +20,4 @@ public interface UserService {
     void register(RegistrationRequest userDto);
 
     Transformer<User,UserDto> getUserTransformer();
-
-    List<List<IngredientDto>> getAvailableRecipes();
 }

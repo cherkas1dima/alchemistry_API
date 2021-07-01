@@ -1,6 +1,5 @@
 package com.alchemistry.dto.modelsdto;
 
-import com.alchemistry.entities.Elixir;
 import com.alchemistry.entities.IngredientType;
 import com.alchemistry.entities.User;
 import lombok.AllArgsConstructor;
@@ -19,6 +18,6 @@ public class IngredientDto {
     private String name;
     private IngredientType type;
     private Long cost;
-    private List<Elixir> elixirs;
+    private Integer level;
     private List<User> ingredientOwners;
 }

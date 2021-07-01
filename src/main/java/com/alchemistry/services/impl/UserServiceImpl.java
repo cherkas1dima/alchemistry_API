@@ -3,7 +3,6 @@ package com.alchemistry.services.impl;
 import com.alchemistry.dto.modelsdto.IngredientDto;
 import com.alchemistry.dto.modelsdto.UserDto;
 import com.alchemistry.dto.requsestdto.RegistrationRequest;
-import com.alchemistry.entities.Elixir;
 import com.alchemistry.entities.Ingredient;
 import com.alchemistry.entities.User;
 import com.alchemistry.entities.UserRoles;
@@ -18,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.alchemistry.utils.AlchemistryContants.SIMPLE_ALCHEMIST;
 import static com.alchemistry.utils.AlchemistryContants.USER_SERVICE_LOGGER;
@@ -37,19 +35,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Transformer<User, UserDto> getUserTransformer() {
         return userTransformer;
-    }
-
-    @Override
-    public List<List<IngredientDto>> getAvailableRecipes() {
-        User user = AlchemyUtils.setRole(
-                rolesRepository.findByName(SIMPLE_ALCHEMIST),
-                AlchemyUtils.getUserFromContextHolder()
-        );
-        return user.getElixirs()
-                .stream()
-                .map(Elixir::getRecipe)
-                .map(ingredientTransformer::entityToDto)
-                .collect(Collectors.toList());
     }
 
     @Override

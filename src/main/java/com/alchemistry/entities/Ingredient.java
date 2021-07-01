@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder(setterPrefix = "set", builderMethodName = "anIngredient", toBuilder = true)
 @Entity
-@Table(name = "ingredient")
+@Table(name = "ingredients")
 public class Ingredient {
 
     @Id
@@ -32,10 +32,12 @@ public class Ingredient {
     private String name;
     @Column(name = "ingredient_type")
     private IngredientType type;
+    @Column(name = "level")
+    private Integer level;
     @Column(name = "ingredient_cost")
     private Long cost;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Elixir> elixirs;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<User> ingredientOwners;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Recipe> recipes;
 }

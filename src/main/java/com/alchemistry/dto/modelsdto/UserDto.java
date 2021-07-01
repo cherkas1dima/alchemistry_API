@@ -1,7 +1,7 @@
 package com.alchemistry.dto.modelsdto;
 
-import com.alchemistry.entities.Elixir;
 import com.alchemistry.entities.Ingredient;
+import com.alchemistry.entities.Recipe;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +19,6 @@ public class UserDto {
     private String e_mail;
     private String password;
     private Long coins;
-    private List<Elixir> elixirs;
     private List<Ingredient> ingredients;
+    private List<Recipe> unlockedRecipes;
 }
